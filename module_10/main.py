@@ -29,6 +29,10 @@ class Record:
         self.phones = [p for p in self.phones if p.value != phone]
 
     def edit_phone(self, old_phone, new_phone):
+        phone_exists = any(p.value == old_phone for p in self.phones)
+        if not phone_exists:
+            raise ValueError(f"Phone number {old_phone} not found in the record.")
+
         for p in self.phones:
             if p.value == old_phone:
                 p.value = new_phone
