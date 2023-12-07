@@ -1,4 +1,3 @@
-from ast import ExtSlice
 import sys
 from pathlib import Path
 

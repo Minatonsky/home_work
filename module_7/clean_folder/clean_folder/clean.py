@@ -25,3 +25,42 @@ def handle_archive(filename: Path, target_folder: Path):
         folder_for_file.rmdir()
         return None
     filename.unlink()
+
+
+def handle_folder(folder: Path):
+    try:
+        folder.rmdir()
+    except OSError:
+        print(f'Не удалось удалить папку {folder.resolve()}')
+
+
+def main(folder: Path):
+    parser.scan(folder)
+
+    for file in parser.IMAGES:
+        handle_media(file, folder / 'images')
+
+    for file in parser.VIDEO:
+        handle_media(file, folder / 'video')
+
+    for file in parser.AUDIO:
+        handle_media(file, folder / 'audio')
+
+    for file in parser.DOCUMENTS:
+        handle_media(file, folder / 'documents')
+
+    for file in parser.OTHER:
+        handle_other(file, folder / 'OTHER')
+
+    for file in parser.ARCHIVES:
+        handle_archive(file, folder / 'archives')
+
+    for folder in parser.FOLDERS[::-1]:
+        handle_folder(folder)
+
+
+if __name__ == '__main__':
+    if len(sys.argv) == 2:
+        folder_for_scan = Path(sys.argv[1])
+        print(f'Start in folder {folder_for_scan.resolve()}')
+        main(folder_for_scan)
