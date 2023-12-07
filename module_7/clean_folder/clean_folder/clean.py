@@ -1,6 +1,10 @@
 from pathlib import Path
-import shutil
 import sys
+import shutil
+
+script_directory = Path(__file__).resolve().parent
+sys.path.append(str(script_directory))
+
 import file_parser as parser
 from normalize import normalize
 
@@ -59,8 +63,17 @@ def main(folder: Path):
         handle_folder(folder)
 
 
-if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        folder_for_scan = Path(sys.argv[1])
-        print(f'Start in folder {folder_for_scan.resolve()}')
-        main(folder_for_scan)
+def start():
+    try:
+        if len(sys.argv) == 2:
+            folder_for_scan = Path(sys.argv[1])
+            print(f'Start in folder {folder_for_scan.resolve()}')
+            main(folder_for_scan)
+        else:
+            print(f"Usage: {Path(__file__).name} indir")
+    except IndexError:
+        print(f"Usage: {Path(__file__).name} indir")
+
+
+if __name__ == "__main__":
+    start()
