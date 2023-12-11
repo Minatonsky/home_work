@@ -50,6 +50,7 @@ class Birthday(Field):
     def value(self, new_value):
         super().validate(new_value)
         self._value = new_value
+
     def validate(self, value):
         try:
             if value:
