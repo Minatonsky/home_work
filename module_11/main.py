@@ -34,6 +34,7 @@ class Phone(Field):
     def value(self, new_value):
         super().validate(new_value)
         self._value = new_value
+
     def validate(self, value):
         if not value.isdigit() or len(value) != 10:
             raise ValueError("Invalid phone number format.")
