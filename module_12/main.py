@@ -24,12 +24,31 @@ class Name(Field):
     pass
 
 class Phone(Field):
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        super().validate(new_value)
+        self._value = new_value
     def validate(self, value):
         if not value.isdigit() or len(value) != 10:
             raise ValueError("Invalid phone number format.")
         return value
 
 class Birthday(Field):
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        super().validate(new_value)
+        self._value = new_value
+
     def validate(self, value):
         if value is not None:
             try:
